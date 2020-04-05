@@ -17,4 +17,4 @@ yarn start
 
 (https://firstthumb.github.io/hsl-live-map)
 
-![Screenhot](https://github.com/firstthumb/hsl-live-map/master/images/screen_1.png)
+![Screenhot](https://github.com/firstthumb/hsl-live-map/blob/master/images/screen_1.png?raw=true)
