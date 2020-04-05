@@ -13,7 +13,7 @@ export const LiveMapComponent: React.FC = () => {
   const {dispatch, live} = useLiveMap()
 
   useEffect(() => {
-    client.on('message', (topic, message, packet) => {
+    client.on('message', (topic, message) => {
       const msg = JSON.parse(message.toString())
       const vp = msg.VP
 
