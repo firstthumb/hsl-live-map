@@ -4,14 +4,19 @@ import {BrowserRouter} from 'react-router-dom'
 import {StoreContext} from 'storeon/react'
 import {store} from './store'
 import {App} from './App'
+import {ThemeProvider, createMuiTheme} from '@material-ui/core'
+
+const theme = createMuiTheme({})
 
 render(
   <>
-    <StoreContext.Provider value={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StoreContext.Provider>
+    <ThemeProvider theme={theme}>
+      <StoreContext.Provider value={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </StoreContext.Provider>
+    </ThemeProvider>
   </>,
   document.getElementById('root')
 )

@@ -3,7 +3,7 @@ import {useLiveMap} from './liveModule'
 import {client} from '~/services'
 import {TramMarker} from '~/common'
 import GoogleMapReact from 'google-map-react'
-import {MAPS_API_KEY} from '~/const'
+import {MAPS_API_KEY, HELSINKI_LAT_LNG, MAPS_DEFAULT_ZOOM} from '~/const'
 
 const topicMatcher = new RegExp(
   '/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/'
@@ -44,24 +44,28 @@ export const LiveMapComponent: React.FC = () => {
     })
   }, [dispatch])
 
+  const isFiltered = (tramNo: string): boolean => live.filter.get(tramNo) || false
+
   return (
     <GoogleMapReact
-      bootstrapURLKeys={{key: MAPS_API_KEY || ''}}
-      defaultCenter={{lat: 60.161, lng: 24.909}}
-      defaultZoom={12}
+      bootstrapURLKeys={{key: MAPS_API_KEY || 'NO_API_KEY'}}
+      defaultCenter={HELSINKI_LAT_LNG}
+      defaultZoom={MAPS_DEFAULT_ZOOM}
     >
       {live &&
         live.vehicles &&
-        [...live.vehicles.values()].map((v) => (
-          <TramMarker
-            key={v.uid}
-            sign={v.desi}
-            headline={v.headline}
-            lat={v.lat}
-            lng={v.lon}
-            color={v.direction == 1 ? 'primary' : 'secondary'}
-          />
-        ))}
+        [...live.vehicles.values()]
+          .filter((v) => isFiltered(String(v.desi)))
+          .map((v) => (
+            <TramMarker
+              key={v.uid}
+              sign={v.desi}
+              headline={v.headline}
+              lat={v.lat}
+              lng={v.lon}
+              color={v.direction == 1 ? 'primary' : 'secondary'}
+            />
+          ))}
     </GoogleMapReact>
   )
 }

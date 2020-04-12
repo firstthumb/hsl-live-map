@@ -8,7 +8,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "jsx": "react",
-    "types": ["node"],
+    "types": ["node", "jest"],
     "skipLibCheck": true,
     "baseUrl": "src",
     "paths": {
